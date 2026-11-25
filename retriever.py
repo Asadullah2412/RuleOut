@@ -9,46 +9,15 @@ embeddings = HuggingFaceEmbeddings(
 
 )
 
-import zipfile
-from pathlib import Path
-from langchain_chroma import Chroma
 
-DB_ZIP = Path("./chroma_db.zip")
-DB_DIR = Path("./chroma_db")
 
-# Extract database if it doesn't already exist
-if not (DB_DIR / "chroma.sqlite3").exists():
 
-    with zipfile.ZipFile(DB_ZIP, "r") as zip_ref:
-        files = zip_ref.namelist()
 
-        # ZIP contains the chroma_db folder itself
-        if "chroma_db/chroma.sqlite3" in files:
-            zip_ref.extractall(".")
-
-        # ZIP contains the database files directly
-        elif "chroma.sqlite3" in files:
-            zip_ref.extractall(DB_DIR)
-
-        else:
-            raise FileNotFoundError(
-                "Could not find chroma.sqlite3 inside ZIP"
-            )
-
-# Load existing ChromaDB
 db = Chroma(
-    collection_name="RuleOut",
-    persist_directory=str(DB_DIR),
+    collection_name= "RuleOut",
+    persist_directory="./chroma_db.zip",
     embedding_function=embeddings
 )
-
-
-
-# db = Chroma(
-#     collection_name= "RuleOut",
-#     persist_directory="./chroma_db.zip",
-#     embedding_function=embeddings
-# )
 
 
 
