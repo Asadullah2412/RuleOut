@@ -2,15 +2,17 @@ import os
 import json
 from openai import OpenAI
 from retriever import top_retriever
+import streamlit as st
 
 
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-
+api_key = st.secrets["OPENROUTER_API_KEY"]
 
 LLM_model = 'openrouter/free'
 client = OpenAI(
     base_url= OPENROUTER_BASE_URL,
-    api_key=os.environ.get("OPENROUTER_API_KEY", "YOUR_OPENROUTER_API_KEY")
+    # api_key=os.environ.get("OPENROUTER_API_KEY", "YOUR_OPENROUTER_API_KEY") // local 
+    api_key= api_key
 )
 
 tools = [
