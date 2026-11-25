@@ -15,7 +15,7 @@ embeddings = HuggingFaceEmbeddings(
 
 db = Chroma(
     collection_name= "RuleOut",
-    persist_directory="./chroma_db.zip",
+    persist_directory="./chroma_db",
     embedding_function=embeddings
 )
 
